@@ -1,0 +1,60 @@
+Páginas do site:
+
+Login vistante e Expositor
+Cadastro do Visitante
+Dasboard Visitante
+	Stands Visitados
+	Números da sorte
+	Perfil
+	Pesquisa de satisfação
+
+Dasboar do Expositor
+	Visitantes do stande
+	Registro de Visitas
+	Perfil+Copia Contrato+Copia do Boleto
+	Solicitações ?
+
+ADM Gerenciar expositores
+	Gerenciar Expositores
+	Enviar Contrato
+	Registrar Boleto
+
+Visitante:
+	nome completo
+	sexo
+	Sele ele e noiva/noivo
+	telefone
+	e-mail
+	senha, repetir	
+	data do casamento
+	Endereço: estado, cidade
+
+Expositor:
+	Razão Social
+	nome fantazia
+	cnpj
+	inscrição estadual
+	endecero:cep, cidade, estado, telefone, e-mail
+
+============== RESUMO ===============
+
+Minha ideia é criar um sistema na internet, com as seguintes paginas e funções em cada pagina. 
+
+Login: 
+- Na página de login o visitante pode acessar sua conta com login e senha, que será enviado para o e-mail dele ao efetuar o cadastro. Quando o visitante logar se ele nunca logou antes ele será legado para uma pagina de "perfil" a fim de concluir preenchimento das informações necessárias, caso ele já tenha acessado antes ele vai direto para um dashboard. 
+Existem dois tipos de login o do visitante e outro do expositor. 
+
+Cadastro: 
+- Na pagina de cadastro o visitante é convidado a completar um formulário que solicita algumas informações minimas como nome completo, se é profissional ou noiva, data do casamento, estado e cidade, telefone e e-mail. Ao finalizar o cadastro o cliente recebe um e-mail que possui login e senha para acessar o portal e um código de visitante. 
+
+Dashboard Visitante: 
+- Ao realizar o login o cliente é levado para um Dashboard, que possui algumas informações como por exemplo; stands visitados, número da sorte, perfil, pesquisa de satisfação. 
+**Stand Visitado: Ao visitar um stand o expositor ira registrar o código do visitante no sistema para que seja mostrado, quando o visitante clicar no nome da empresa deve aparecer o nome da empresa, telefone e endereço. 
+**Número da Sorte: Cada visita feito em um stand o sistema deve gerar um número da sorte, este número depois será sorteado. 
+**Perfil: Neste espaço o visitante pode preencher todos os campos a serem determinados por nós, como endereço, CPF, informações que não são obrigatórias. 
+
+Dashboard Expositor: 
+- Ao realizar o login se for expositor é levado para um dashboard, que possui algumas informações como por exemplo, visitantes que estiveram no stand, registro de visita, perfil, solicitações. 
+**Visitante que Estiveram no Stand: uma tabela que mostre nome, telefone e e-mail dos visitantes do stands.
+**Registro de Visita: Uma pagina onde o expositor possa colocar o código do visitante confirmando sua visita naquele stand, para cada visita gerada, o sistema deve gerar um número da sorte, que deve ser sequencial para ser sorteado no final do evento. 
+** Perfil com as informações do expositor, copia do contrato, copia dos boletos.

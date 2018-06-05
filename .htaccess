@@ -1,0 +1,23 @@
+RewriteEngine On
+#RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# ========== VISITANTE
+
+RewriteRule ^cadastro?$ cadastro.php
+RewriteRule ^visitante/stands-visitados?$ visitante/stands.php
+RewriteRule ^visitante/sorteios?$ visitante/sorteios.php
+RewriteRule ^visitante/perfil?$ visitante/perfil.php
+
+# ========== ADM
+
+RewriteRule ^adm/pin?$ adm/index.php
+RewriteRule ^adm/expositores?$ adm/expositores.php
+RewriteRule ^adm/sortear?$ adm/sortear.php
+
+# ========== EXPOSITOR
+
+RewriteRule ^adm/visitas?$ adm/visitas.php
+RewriteRule ^adm/arquivos?$ adm/arquivos.php
