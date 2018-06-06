@@ -81,7 +81,7 @@ input:-webkit-autofill {
 
 .input.normal > label {
     font-size: .8em;
-    color: #666;
+    color: #777;
     margin-bottom: 8px;
     font-weight: bold;
     display: block;
@@ -134,6 +134,12 @@ input:-webkit-autofill {
     justify-content: space-between;
 }
 
+hr.linha {
+    width: 100%;
+    border-bottom: 1px dashed #ddd;
+    margin-bottom: 20px;
+}
+
 /* ======================= */
 /* ========BOTOES========= */
 /* ======================= */
@@ -164,6 +170,19 @@ input:-webkit-autofill {
 	order: 2;
 }
 
+.botao.icon {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+}
+
+.botao.icon i {
+	font-size: 1.2em;
+}
+
 .botao:not(:disabled):not(.disabled):hover {
     /*box-shadow: inset 0 -80px 0 rgba(0,0,0,.1);*/
     box-shadow: 0 0 5px rgba(0,0,0,.3);
@@ -175,7 +194,7 @@ a.botao {
     text-align: center;
 }
 
-.botao i {
+.botao:not(.icon) i {
     margin-left: 10px;
 }
 
@@ -202,7 +221,7 @@ a.botao {
     display: flex !important;
     justify-content: center;
     align-items: center;
-    background: #e95950;
+    background: var(--cor4);
     border-radius: 3px;
     cursor: pointer;
     transition: .3s ease;
@@ -260,16 +279,19 @@ a.botao {
 }
 
 .fundo > div {
-    width: 400px;
-    background: #FEFEFE;
-    border-radius: 5px;
+    width: 700px;
+    border-radius: 3px;
     box-shadow: 0 0 5px rgba(0,0,0,.3);
+    overflow-y: hidden;
+    background: white;
 }
 
 .fundo > div > h3 {
+    background: var(--cor1);
+    color: white;
     text-align: center;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(0,0,0,.1);
+    border-bottom: 2px solid rgba(0,0,0,.1);
 }
 
 /* ======================= */

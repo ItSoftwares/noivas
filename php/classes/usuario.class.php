@@ -1,4 +1,5 @@
 <?
+
 class Usuario {
 
 	private $props = []; 
@@ -91,6 +92,8 @@ class Usuario {
 						if ($this->ultimo_login==null or $this->ultimo_login=="") {
 							$_SESSION['conf_msg'] = "Bem vindo a ZINNES. Toda a equipe estará a disposição!";
 						}
+
+						$_SESSION['tipo_usuario'] = $value;
 						
 						// RETORNO
 						$_SESSION['usuario'] = serialize($this);

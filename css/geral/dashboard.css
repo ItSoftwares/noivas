@@ -379,7 +379,7 @@ article#centro footer {
     left: 0;
     width: 100%;
     background: var(--cor2);
-    display: flex;
+    display: none;
     justify-content: space-between;
     /*align-items: center;*/
 }
