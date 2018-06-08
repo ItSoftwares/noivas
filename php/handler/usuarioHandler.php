@@ -76,6 +76,20 @@ if (isset($_POST['funcao'])) {
 		echo json_encode($result);
 		exit;
 	} 
+	else if ($funcao=="excluirExpositor") {
+		$usuario = new Usuario($dados);
+		$result = $usuario->excluirExpositor();
+		
+		echo json_encode($result);
+		exit;
+	}
+	else if ($funcao=="adicionarVisita") {
+		$usuario = new Usuario($dados);
+		$result = $usuario->adicionarVisita();
+		
+		echo json_encode($result);
+		exit;
+	}
 } 
 else {
 	echo json_encode(array(

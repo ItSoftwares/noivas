@@ -75,7 +75,7 @@ input:-webkit-autofill {
 .input.normal {
     position: relative;
     /*margin-bottom: 10px;*/
-    width: 49%;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -150,10 +150,11 @@ input:-webkit-autofill {
 }
 
 .input.metade {
-    width: 23.5% !important;
+    width: 49% !important;
 }
 
 .input.quarto {
+	width: 23.5% !important;
 	/*width: 24% !important;*/
 }
 
@@ -206,6 +207,9 @@ hr.linha {
     align-items: center;
     width: 45px;
     height: 45px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
 }
 
 .botao.fixed i {

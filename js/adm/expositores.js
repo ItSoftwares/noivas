@@ -28,12 +28,68 @@ $(document).on('click', 'i.editar', function() {
 	// $("#novo-expositor button").text('Atualizar');
 	$("#novo-expositor form [name=razao_social").focus().select();
 	funcao = "atualizar";
-})
+});
 
 $(document).on('click', 'i.arquivos', function() {
 	id = $(this).closest('tr').data('id');
 
 	location.href = "documentos?expositor="+id;
+});
+
+$(document).on('click', 'i.editar', function() {
+	exp = expositores[$(this).closest('tr').data('id')];
+
+	$.each(exp, function(i, value) {
+		$("#novo-expositor [name="+i+"]").val(value).trigger('input');
+	});
+
+	$("#novo-expositor").fadeIn().css({display: 'flex'});
+	$("#novo-expositor h3").text('Atualizar Dados do Expositor');
+	// $("#novo-expositor button").text('Atualizar');
+	$("#novo-expositor form [name=razao_social").focus().select();
+	funcao = "atualizar";
+});
+
+$(document).on('click', 'i.excluir', function() {
+	exp = expositores[$(this).closest('tr').data('id')];
+
+	confirmacao("Confirmação", "Deseja realmente excluir esse expositor?", function() {
+		//sim
+		data = {};
+	    data.funcao = 'excluirExpositor';
+	    data.id = exp.id;
+
+	    chamarPopupLoading("Aguarde...!");
+	    $.ajax({
+	        type: "post",
+	        url: "../php/handler/usuarioHandler.php",
+	        data: data,
+	        success: function(result) {
+	            console.log(result);
+	            result = JSON.parse(result);
+
+	            if (result.estado == 1) {
+	            	chamarPopupConf(result.mensagem);
+
+	            	$("table tr[data-id="+data.id+"]").remove();
+	            } else {
+	                chamarPopupInfo(result.mensagem);
+	            }
+
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	            chamarPopupErro("Desculpe, houve um erro, por favor atualize a página ou nos contate.");
+	            console.log(XMLHttpRequest);
+	            console.log(textStatus);
+	            console.log(errorThrown);
+	        },
+	        complete: function() {
+	            removerLoading();
+	        }
+	    });
+	}, function() {
+		//não
+	}, "Cancelar", "Excluir");
 });
 
 
@@ -67,7 +123,7 @@ $("#novo-expositor form").submit(function(e) {
     // console.log(data); return;
 
     $(this).find("button").attr("disabled", true);
-    chamarPopupLoading("Aguarde enquanto a conta é criada!");
+    chamarPopupLoading("Aguarde...");
     $.ajax({
         type: "post",
         url: "../php/handler/usuarioHandler.php",
@@ -138,7 +194,7 @@ function adicionarExpositor(data) {
 	temp += "</td>";
 	temp += "</tr>";
 
-	$("#expositores table").preppend(temp);
+	$("#expositores table").prepend(temp);
 
 	expositores[data.id] = data;
 }

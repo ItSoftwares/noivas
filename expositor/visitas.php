@@ -26,7 +26,7 @@ require "../php/classes/usuario.class.php";
 		$titulo = "Visitas";
 		include('menu.php'); 
 
-		$visitas = DBselect('visita', "where id_expositor={$usuario->id}");
+		$visitas = DBselect('visita v INNER JOIN visitante u ON v.id_usuario = u.id', "where id_expositor={$usuario->id} order by id DESC", 'v.*, u.nome');
 		?>
 
 		<article id="centro">
@@ -53,6 +53,8 @@ require "../php/classes/usuario.class.php";
 				</table>
 			</section>
 
+			<button class="botao redondo fixed" id="nova"><i class="fa fa-plus"></i></button>
+
 			<footer>
 				<ul id="redes-sociais" class="transition">
 					<li><a href="facebook" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
@@ -64,9 +66,13 @@ require "../php/classes/usuario.class.php";
 			</footer>
 		</article>
 
+		<? include('../html/modals.html'); ?>
     </body>
 
     <script type="text/javascript">  
+    	var usuario = <? echo json_encode($usuario->toArray()) ?>;
     </script>
+    <script src="../js/geral/geral.js?<? echo time(); ?>"></script>
     <script src="../js/geral/dashboard.js?<? echo time(); ?>"></script>
+    <script src="../js/expositor/visitas.js?<? echo time(); ?>"></script>
 </html>

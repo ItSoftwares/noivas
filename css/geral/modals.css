@@ -48,11 +48,11 @@
 }
 
 #modals .modal-cancelar {
-    color: #e95950;
+    color: var(--cor4);
 }
 
 #modals .modal-ok {
-    color: #2196F3;
+    color: var(--cor1);
 }
 
 #modals .modal-texto {

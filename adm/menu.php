@@ -6,12 +6,12 @@
 				<span>Expositores</span>
 			</a>
 		</li>
-		<li class="<? echo $titulo=='Sortear'?'selecionado':'' ?>">	
+		<!-- <li class="<? echo $titulo=='Sortear'?'selecionado':'' ?>">	
 			<a href="sortear">
 				<i class="fa fa-dice"></i>
 				<span>Sortear</span>
 			</a>
-		</li>
+		</li> -->
 		<? if ($titulo=="Documentos") { ?>
 			<li class='selecionado'>	
 				<a href="documentos?expositor=<? echo $id ?>">

@@ -77,6 +77,17 @@ function colocarZero(n) {
     
     return n;
 }
+
+function getData(time) {
+    time = new Date(time*1000);
+    return colocarZero(time.getDate())+"/"+colocarZero(time.getMonth()+1)+"/"+time.getFullYear();
+}
+
+function getHora(time) {
+    time = new Date(time*1000);
+    return colocarZero(time.getHours())+":"+colocarZero(time.getMinutes());
+}
+
 function formToArray(serialized) {
     temp = {};
     

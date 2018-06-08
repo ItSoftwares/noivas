@@ -160,6 +160,33 @@ class Usuario {
 		$this->valores_atualizar = array();
 		return array('estado'=>1, 'mensagem'=>"Informações atualizadas com sucesso!", 'atualizado' => $this->toArray());
 	}
+
+	public function excluirExpositor() {
+		$this->fromArray(DBselect('expositor', "where id={$this->id}"));
+
+		$dirname = realpath("../..".DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'servidor'.DIRECTORY_SEPARATOR;
+
+		rmdir_recursive($dirname.'documentos'.DIRECTORY_SEPARATOR.$this->id.DIRECTORY_SEPARATOR);
+		if ($this->foto_perfil!=null || $this->foto_perfil!="") unlink($dirname.'foto_perfil'.DIRECTORY_SEPARATOR.$this->foto_perfil);
+
+		DBdelete('expositor', "where id={$this->id}");
+		DBdelete('visita', "where id_expositor={$this->id}");
+
+		return array('estado'=>1, 'mensagem'=>"Expositor excluido com sucesso!");
+	}
+
+	public function adicionarVisita() {
+		$result = DBselect('visitante', "where id={$this->id_usuario}");
+
+		if (count($result)>0) {
+			$this->id = DBcreate('visita', $this->toArray());
+			$this->nome = $result[0]['nome'];
+		} else {
+			return array('estado'=>2, 'mensagem'=>"ID de usuário não existe!");
+		}
+
+		return array('estado'=>1, 'mensagem'=>"Expositor excluido com sucesso!", 'visita'=>$this->toArray());
+	}
 	
 	public function mensagem($texto_mensagem, $titulo = "Mensagem Plataforma") {
 
@@ -261,45 +288,6 @@ class Usuario {
 	public function estaDeclarado($chave) {
 		if (isset($this->props[$chave])) return true;
 		else return false;
-	}
-	
-	public function novoLogModerador($log) {
-		$id = DBcreate('log_moderador', $log);
-	}
-	
-	public function pegarNotificacoes($data = 0) {
-		$extra = $data!=0?" and n.data < '".date('Y-m-d H:i:s', $data)."'":"";
-		$extra2 = $data!=0?" and data < '".date('Y-m-d H:i:s', $data)."'":"";
-		
-		$notificacoes = DBselect('notificacao n INNER JOIN titulo t ON n.id_titulo = t.id INNER JOIN projeto p ON t.id_projeto = p.id', "where n.id_usuario = {$this->id}{$extra} order by n.data DESC limit 10", "n.*, t.nome, t.descricao, t.id_projeto, t.thumb_titulo, p.thumb_projeto, p.tipo");
-		
-		$logs = DBselect('log_moderador', "where id_usuario = {$this->id}{$extra2} order by data DESC limit 10");
-
-		$comentarios = DBselect('notificacao_comentario n INNER JOIN usuario u ON u.id = n.id_de', "where id_usuario = {$this->id}{$extra2} or id_titulo in (select id from titulo where id_projeto in (select id from projeto where id_usuario = {$this->id})) order by data DESC limit 10", 
-			"n.*, u.foto_perfil, u.nickname, 
-			(select tipo from projeto where id in (select id_projeto from titulo where id = n.id_titulo)) tipo, 
-			(select nome from titulo where id = n.id_titulo) titulo");
-			
-		// $comentarios = [];
-		
-		DBupdate("notificacao", array('lido' => 1), "where id_usuario={$this->id}");
-		DBupdate("log_moderador", array('lido' => 1), "where id_usuario={$this->id}");
-		DBupdate("notificacao_comentario", array('lido' => 1), "where id_usuario = {$this->id} or id_titulo in (select id from titulo where id_projeto in (select id from projeto where id_usuario = {$this->id}))");
-		
-		$notificacoes = $notificacoes==null?[]:$notificacoes;
-		$logs = $logs==null?[]:$logs;
-
-		$retorno = [];
-		$retorno['notificacoes'] = $notificacoes;
-		$retorno['logs'] = $logs;
-		$retorno['comentarios'] = $comentarios;
-		if (count($notificacoes)<10 and count($logs)<10 and count($comentarios)<10) $retorno['acabou'] = 1;
-		
-		return $retorno;
-	}
-	
-	public function lerNotificacao($data) {
-		
 	}
 	
 	// Gets e Sets

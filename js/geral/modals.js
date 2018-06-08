@@ -10,10 +10,13 @@ function promp(titulo, label, sim, nao) {
     $("#modal-promp label").text(label);
     
     $("#modal-promp").fadeIn().css("display","flex");
+    $("#promp-input").val("").focus();
+
+    $("#modal-promp .modal-ok, #modal-promp .modal-cancelar").unbind('click');
     
    // if (!modal_promp) {
         $("#modal-promp .modal-cancelar").click(function() {
-            $(this).unbind("click");
+            // $(this).unbind("click");
             nao();
             $("#modal-promp").fadeOut();
         });
@@ -22,8 +25,8 @@ function promp(titulo, label, sim, nao) {
                 $("#promp-input").focus();
                 return;
             }
-            $(this).unbind("click");
-            sim();
+            // $(this).unbind("click");
+            sim($("#promp-input").val());
             $("#modal-promp").fadeOut();
         });
    // }
@@ -33,8 +36,8 @@ function promp(titulo, label, sim, nao) {
 
 function confirmacao(titulo, texto, sim, nao, botao1, botao2) {
     
-    botao1 = botao1 || "CANCELAR";
-    botao2 = botao2 || "OK";
+    botao1 = botao1 || "OK";
+    botao2 = botao2 || "CANCELAR";
     $("#modal-confirm h3").text(titulo);
     $("#modal-confirm p").text(texto);
     $("#modal-confirm .modal-cancelar").text(botao1);

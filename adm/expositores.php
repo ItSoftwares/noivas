@@ -136,6 +136,8 @@ $expositores = DBselect('expositor', 'order by id DESC');
 			</footer>
 		</article>
 
+		<? include("../html/modals.html") ?>
+
     </body>
 
     <script type="text/javascript">  

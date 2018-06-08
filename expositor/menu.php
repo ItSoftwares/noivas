@@ -11,7 +11,7 @@ $usuario = unserialize($_SESSION['usuario']);
 			</a>
 		</li>
 		<li class="<? echo $titulo=='Documentos'?'selecionado':'' ?>">	
-			<a href="arquivos">
+			<a href="documentos">
 				<i class="fa fa-file-alt"></i>
 				<span>Documentos</span>
 			</a>
