@@ -1,5 +1,7 @@
 <?
 require "../php/database/conexao.php";
+require "../php/classes/usuario.class.php";
+
 ?>
 <!DOCTYPE HTML>
 <html> 
@@ -23,22 +25,31 @@ require "../php/database/conexao.php";
 		<? 
 		$titulo = "Visitas";
 		include('menu.php'); 
+
+		$visitas = DBselect('visita', "where id_expositor={$usuario->id}");
 		?>
 
 		<article id="centro">
-			<section id="registrar" class="painel">
-				<h2>Registrar Visitante</h2>
-			</section>
-
 			<section id="ultimos" class="painel">
 				<h2>Ultimos Visitantes</h2>
 				<table>
 					<tr>
-						<th>ID</th>
-						<th>Data do sorteio</th>
-						<th class="center">Qtd Participantes</th>
-						<th class="center">Número sorteado</th>
+						<th>Visitante</th>
+						<th>Data</th>
+						<th class="centro">Número da Sorte</th>
 					</tr>
+
+					<?
+					foreach ($visitas as $key => $value) {
+					?>
+					<tr>
+						<td><? echo $value['nome']; ?></td>
+						<td><? echo date('d/m/Y, H:i', strtotime($value['time'])); ?></td>
+						<td class="centro"><? echo $value['id']; ?></td>
+					</tr>
+					<?
+					}
+					?>
 				</table>
 			</section>
 

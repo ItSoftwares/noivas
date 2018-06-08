@@ -3,21 +3,26 @@ function listar($diretorio) {
     $array = array();
     $caminhos = array();
     $informacoes = array();
-    
-    $lista = scandir($diretorio);
-    $lista = array_diff($lista, ["..","."]);
-    
-    foreach ($lista as $temp) {
-        if (is_dir($diretorio.DIRECTORY_SEPARATOR.$temp) && file_exists($diretorio.DIRECTORY_SEPARATOR.$temp)) {
-            $result = listar($diretorio.DIRECTORY_SEPARATOR.$temp.DIRECTORY_SEPARATOR);
-            $array[$temp] = $result['nomes'];
-            $caminhos[$temp] = $result['caminhos'];
-            $informacoes[$temp] = $result['informacoes'];
-        } else {
-            array_push($array, $temp);
-            array_push($caminhos, $diretorio.DIRECTORY_SEPARATOR.$temp);
-            array_push($informacoes, pathinfo($diretorio.DIRECTORY_SEPARATOR.$temp));
-        }
+    $times = array();
+
+    if ($diretorio!="") {
+    	$lista = scandir($diretorio);
+	    $lista = array_diff($lista, ["..","."]);
+	    
+	    foreach ($lista as $temp) {
+	        if (is_dir($diretorio.DIRECTORY_SEPARATOR.$temp) && file_exists($diretorio.DIRECTORY_SEPARATOR.$temp)) {
+	            $result = listar($diretorio.DIRECTORY_SEPARATOR.$temp.DIRECTORY_SEPARATOR);
+	            $array[$temp] = $result['nomes'];
+	            $caminhos[$temp] = $result['caminhos'];
+	            $informacoes[$temp] = $result['informacoes'];
+	        } else {
+	            array_push($array, $temp);
+	            array_push($caminhos, $diretorio.DIRECTORY_SEPARATOR.$temp);
+	            $info = pathinfo($diretorio.DIRECTORY_SEPARATOR.$temp);
+	            $info['time'] = filemtime($diretorio.DIRECTORY_SEPARATOR.$temp);
+	            array_push($informacoes, $info);
+	        }
+	    }
     }
     
     return array("nomes"=>$array, "caminhos"=>$caminhos, "informacoes"=> $informacoes);

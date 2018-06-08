@@ -120,6 +120,35 @@ input:-webkit-autofill {
     color: rgba(0,0,0,.8);
 }
 
+.input.normal .upload {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f3f3f3;
+    border-radius: 2px;
+    /*opacity: .7;*/
+    padding-left: 10px;
+    /*overflow: hidden;*/
+}
+
+.input.normal .upload .nome {
+	font-size: .8em;
+    color: #999;
+}
+
+.input.normal .upload label {
+	background: var(--cor3);
+    color: rgba(0,0,0,.4);
+}
+
+.input.normal .upload label button {
+	margin-top: 0px !important;
+}
+
+.input.normal .upload input {
+	display: none;
+}
+
 .input.metade {
     width: 23.5% !important;
 }
@@ -170,7 +199,7 @@ hr.linha {
 	order: 2;
 }
 
-.botao.icon {
+.botao.fixed {
     padding: 0;
     display: flex;
     justify-content: center;
@@ -179,8 +208,18 @@ hr.linha {
     height: 45px;
 }
 
-.botao.icon i {
+.botao.fixed i {
 	font-size: 1.2em;
+}
+
+.botao.icon {
+	/*padding: 10px;*/
+    padding: 0;
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
 }
 
 .botao:not(:disabled):not(.disabled):hover {
@@ -194,8 +233,23 @@ a.botao {
     text-align: center;
 }
 
-.botao:not(.icon) i {
-    margin-left: 10px;
+.botao:not(.fixed) i {
+    /*margin-left: 10px;*/
+}
+
+.botao.amarelo {
+	/*color: black;*/
+	background: #FFC107;
+}
+
+.botao.verde {
+	/*color: white;*/
+	background: var(--cor1);
+}
+
+.botao.vermelho {
+	/*color: black;*/
+	background: var(--cor4);
 }
 
 .disabled, *:disabled {

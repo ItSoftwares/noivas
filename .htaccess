@@ -15,9 +15,11 @@ RewriteRule ^visitante/perfil?$ visitante/perfil.php
 
 RewriteRule ^adm/pin?$ adm/index.php
 RewriteRule ^adm/expositores?$ adm/expositores.php
+RewriteRule ^adm/documentos?$ adm/documentos.php
 RewriteRule ^adm/sortear?$ adm/sortear.php
 
 # ========== EXPOSITOR
 
 RewriteRule ^adm/visitas?$ adm/visitas.php
-RewriteRule ^adm/arquivos?$ adm/arquivos.php
+RewriteRule ^adm/documentos?$ adm/documentos.php
+RewriteRule ^adm/perfil?$ adm/perfil.php

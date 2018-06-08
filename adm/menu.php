@@ -12,6 +12,14 @@
 				<span>Sortear</span>
 			</a>
 		</li>
+		<? if ($titulo=="Documentos") { ?>
+			<li class='selecionado'>	
+				<a href="documentos?expositor=<? echo $id ?>">
+					<i class="fa fa-file-alt"></i>
+					<span>Documentos</span>
+				</a>
+			</li>
+		<? } ?>
 	</ul>
 
 	<img src="../img/logo1.png" alt="" id="logo">
@@ -23,11 +31,11 @@
 		<span></span>
 		<span></span>
 	</div>
-	<h1><? echo $titulo; ?></h1>
+	<h1><? echo $titulo.($titulo=="Documentos"?" - {$expositor->nome_fantasia}":""); ?></h1>
 	<div id="perfil">
 		<img src="../img/profile-default.png">
 		<div id="nome">
-			<h2>Nome do usuário</h2>
+			<h2>Administrador</h2>
 			<p><? echo date('d/m/Y'); ?></p>
 		</div>
 		<i class="fa fa-ellipsis-h"></i>

@@ -1,3 +1,7 @@
+<?
+if (!isset($_SESSION)) session_start();
+$usuario = unserialize($_SESSION['usuario']);
+?>
 <aside id="menu-lateral">
 	<ul class="">
 		<li class="<? echo $titulo=='Visitas'?'selecionado':'' ?>">	
@@ -6,10 +10,16 @@
 				<span>Visitas</span>
 			</a>
 		</li>
-		<li class="<? echo $titulo=='Arquivos'?'selecionado':'' ?>">	
+		<li class="<? echo $titulo=='Documentos'?'selecionado':'' ?>">	
 			<a href="arquivos">
 				<i class="fa fa-file-alt"></i>
-				<span>Arquivos</span>
+				<span>Documentos</span>
+			</a>
+		</li>
+		<li class="<? echo $titulo=='Perfil'?'selecionado':'' ?>">	
+			<a href="perfil">
+				<i class="fa fa-user"></i>
+				<span>Perfil</span>
 			</a>
 		</li>
 	</ul>

@@ -1,0 +1,28 @@
+@import url('../geral/dashboard.css');
+
+#novo {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+}
+
+#novo-arquivo > div {
+	width: 400px;
+}
+
+#novo-arquivo form {
+	padding: 10px;
+}
+
+#novo-arquivo .input {
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+#novo-arquivo button {
+	margin-top: 10px;
+}
+
+#links {
+	display: none;
+}

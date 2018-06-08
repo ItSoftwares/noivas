@@ -13,7 +13,7 @@ class Usuario {
 		$result3 = DBselect('expositor', "where email = '{$this->email}'", 'email');
 		
 		if (count($result)>0 or count($result2)>0 or count($result3)>0) {
-			$result = $result[0];
+			// $result = $result[0];
 			return array('estado'=>2, 'mensagem'=>"Já existe algum usuário cadastrado com esse email!");
 		} else {
 			$qtd = DBselect("adm", "", "count(*) as qtd")[0]['qtd'];
@@ -46,7 +46,7 @@ class Usuario {
 			
 			$result = $this->mensagem($mensagem, "Bem-vindo a nossa plataforma");
 			
-			return array('estado'=>1, 'mensagem'=>$retorno, 'tipo_usuario'=>$tipo);
+			return array('estado'=>1, 'mensagem'=>$retorno, 'tipo_usuario'=>$tipo, 'usuario'=>$this->toArray());
 		}
 	}
 	
@@ -131,30 +131,19 @@ class Usuario {
 		}
 	}
 	
-	public function atualizar($arquivos = null) {
-		if ($this->estaDeclarado('nickname')) {
-			$nickname = DBselect("usuario", "where nickname='{$this->nickname}' and id<>{$this->id}");
-			
-			if (count($nickname)>0) {
-				return array('estado'=>2, 'mensagem'=>"Já existe um usuário com esse Nickname!");
-			}
-		} else if ($this->estaDeclarado('email')) {
-			$email = DBselect("usuario", "where email='{$this->email}' and id<>{$this->id}");
+	public function atualizar($arquivos = null, $tipoUsuario) {
+		if ($this->estaDeclarado('email')) {
+			$email = DBselect($tipoUsuario, "where email='{$this->email}' and id<>{$this->id}");
 			
 			if (count($email)>0) {
 				return array('estado'=>2, 'mensagem'=>"Já existe um usuário com esse Email!");
 			}
 		}
-		$bloqueio = false;
-		if ($this->estaDeclarado('estado_conta') and $this->estado_conta>1) {
-			if ($this->estado_conta==2) {
-				$this->dias_bloqueio = date('Y-m-d H:i:s', time() + $this->dias_bloqueio*24*60*60);
-				$bloqueio = true;
-			}
-		}
 		
-		if ($this->senha=="") $this->unsetAtributo('senha');
-		else {
+		if ($this->senha=="") {
+			$this->unsetAtributo('senha');
+		}
+		else if ($tipoUsuario=='adm') {
 			$this->hash = time();
 			$this->senha = md5($this->senha.$this->hash);
 		}
@@ -165,11 +154,8 @@ class Usuario {
 			$this->unsetAtributo('larguraImagem');
 		}
 		
-		
 		$temp = $this->id;
-		DBupdate("usuario", $this->valores_atualizar, "where id={$temp}");
-		
-		if ($bloqueio) $this->dias_bloqueio = strtotime($this->dias_bloqueio);
+		DBupdate($tipoUsuario, $this->valores_atualizar, "where id={$temp}");
 		
 		$this->valores_atualizar = array();
 		return array('estado'=>1, 'mensagem'=>"Informações atualizadas com sucesso!", 'atualizado' => $this->toArray());
@@ -342,4 +328,5 @@ class Usuario {
 		}
 	}
 }
+
 ?>

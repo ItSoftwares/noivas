@@ -21,16 +21,18 @@ $("#form-login form").submit(function(e) {
 	                setTimeout(function() {
 	                	location.href = "adm/pin";
 	                }, 3000);
-	                
-	                $("#form-login form")[0].reset();
 	            } else if (result.tipo_usuario=='visitante') {
 	            	// redirecionar Visitante
 	                chamarPopupConf(result.mensagem);
 	                setTimeout(function() {
 	                	location.href = "visitante/stands-visitados";
 	                }, 3000);
-	                
-	                $("#form-login form")[0].reset();
+	            }  else if (result.tipo_usuario=='expositor') {
+	            	// redirecionar Expositor
+	                chamarPopupConf(result.mensagem);
+	                setTimeout(function() {
+	                	location.href = "expositor/visitas";
+	                }, 3000);
 	            } 
             } else {
                 chamarPopupInfo(result.mensagem);

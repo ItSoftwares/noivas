@@ -1,5 +1,9 @@
 <?
 require "../php/database/conexao.php";
+require "../php/classes/usuario.class.php";
+require "../php/util/listarArquivos.php";
+
+date_default_timezone_set('America/Sao_Paulo');
 ?>
 <!DOCTYPE HTML>
 <html> 
@@ -21,32 +25,48 @@ require "../php/database/conexao.php";
     
     <body class="fechado">
 		<? 
-		$titulo = "Arquivos";
+		$titulo = "Documentos";
 		include('menu.php'); 
+
+		$diretorio = realpath(dirname(__DIR__).DIRECTORY_SEPARATOR."servidor".DIRECTORY_SEPARATOR."documentos".DIRECTORY_SEPARATOR.$usuario->id.DIRECTORY_SEPARATOR);
+		// echo $diretorio;
+		$documentos = listar($diretorio);
+		$documentos = utf8ize($documentos)['informacoes'];
+
+		usort($documentos, 'compara');
+
+		function compara($a, $b) {
+			return $a['time'] < $b['time'];
+		}
 		?>
 
 		<article id="centro">
-			<section id="contrato" class="painel">
-				<h2>Contrato</h2>
-
-				<table>
-					<tr></tr>
-					<tr>
-						<td>Contrato empresa tal e tal</td>
-						<td>Data do envio</td>
-						<td>baixar ou ver</td>
-					</tr>
-				</table>
-			</section>
-
-			<section id="boletos" class="painel">
+			<section id="documentos" class="painel">
 				<h2>Boletos</h2>
 				<table>
 					<tr>
-						<th>Periodo</th>
-						<th>Observação</th>
-						<th>Ações</th>
+						<th>Nome</th>
+						<th>Data</th>
+						<th>Tipo</th>
+						<th class="centro">Ações</th>
 					</tr>
+					
+					<?
+					foreach ($documentos as $key => $doc) {
+					?>
+					<tr data-index="<? echo $key ?>">
+						<td><? echo ucfirst($doc['filename']); ?></td>
+						<td><? echo date('d/m/Y, H:i', $doc['time']); ?></td>
+						<td class="extensao"><? echo strtoupper($doc['extension']); ?></td>
+						<td class="centro">
+							<i class="fa fa-download baixar botao icon verde" title="Baixar Arquivo"></i>
+							<i class="fa fa-eye ver botao icon amarelo" title="Abrir Arquivo"></i>
+							<!-- <i class="fa fa-trash editar botao icon vermelho" title="Apagar Arquivo"></i> -->
+						</td>
+					</tr>
+					<?
+					}
+					?>
 				</table>
 			</section>
 
@@ -64,6 +84,9 @@ require "../php/database/conexao.php";
     </body>
 
     <script type="text/javascript">  
+    	var documentos = <? echo json_encode($documentos); ?>
     </script>
+    <script src="../js/geral/geral.js?<? echo time(); ?>"></script>
     <script src="../js/geral/dashboard.js?<? echo time(); ?>"></script>
+    <script src="../js/adm/documentos.js?<? echo time(); ?>"></script>
 </html>
